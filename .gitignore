@@ -1,0 +1,19 @@
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Python / Django
+__pycache__/
+*.pyc
+*.pyo
+app/db.sqlite3
+staticfiles/
+media/
+
+# Docker
+*.log
+
+# Entornos virtuales (si acaso)
+venv/
+env/
