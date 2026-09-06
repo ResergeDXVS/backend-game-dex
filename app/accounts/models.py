@@ -1,20 +1,19 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
 class Accounts(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+
     name                = models.CharField(verbose_name="Nombre",max_length=50)
     paternal_surname    = models.CharField(verbose_name="Apellido Paterno",max_length=50)
     maternal_surname    = models.CharField(verbose_name="Apellido Materno",blank=True)
     rfc                 = models.CharField(verbose_name="RFC",max_length=13,validators=[MinLengthValidator(13)])
     datebirth           = models.DateField(verbose_name="Fecha de nacimiento")
     email               = models.EmailField(verbose_name="Correo",max_length=254,unique=True)
-    password            = models.CharField(verbose_name="Contraseña",max_length=128)
 
-    def save(self, *args, **kwargs):
-        if self.password and not self.password.startswith("pbkdf2_"):
-            self.set_password(self.password)
-        super().save(*args, **kwargs)
-
+    def __str__(self):
+        return self.email
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
 
