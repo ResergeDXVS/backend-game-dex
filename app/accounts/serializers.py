@@ -55,3 +55,9 @@ class CreditCardSerializer(serializers.ModelSerializer):
             "expiration",
             "cvc"
         ]
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep.pop("expiration", None)
+        rep.pop("cvc", None)
+        return rep

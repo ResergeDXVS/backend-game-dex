@@ -27,7 +27,7 @@ class APILogin(APIView):
         refresh = RefreshToken.for_user(user)
         return Response({
             "user": {
-                "id": user.id,
+                "id": account.id,
                 "email": user.email,
                 "name": account.name,
                 "paternal_surname": account.paternal_surname,
@@ -48,10 +48,9 @@ class APIUser(APIView):
 
             # Generar tokens JWT a partir del User
             refresh = RefreshToken.for_user(account.user)
-
             return Response({
                 "user": {
-                    "id": account.user.id,
+                    "id": account.id,
                     "email": account.user.email,
                     "name": account.name,
                     "paternal_surname": account.paternal_surname,
